@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>users</title>
+    <style>
+        /* Стилизация таблицы */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: center;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Стилизация кнопок */
+        .button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #3e8e41;
+        }
+
+        /* Стилизация заголовка */
+        h2 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        /*  Стилизация ссылок  */
+        a {
+            text-decoration: none;
+            cursor: pointer;
+            color: #4CAF50;
+        }
+
+        input[type=submit] {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 8px 16px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        input[type=submit]:hover {
+            background-color: #3e8e41;
+        }
+
+    </style>
+</head>
+<body>
+<h2><a th:href="@{/users/new}">ADD USER</a></h2>
+<table>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Age</th>
+        <th>Action</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Перечисляем пользователей из базы данных -->
+    <tr th:each="user : ${users}">
+
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.surname}"></td>
+        <td th:text="${user.age}"></td>
+        <td>
+            <a th:href="@{users/edit/{id}(id=${user.id})}" class="button">update</a>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{users/delete/{id}(id=${user.id})}">
+                <input type="submit" value="delete">
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>
